@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Doctor";
+}
+
+<h1>Welcome to online doctor</h1>
+<h4>You can now check if you have fever or not and get instant results today!</h4>
+<h4>Please enter your current temperature</h4>
+
+<form method="post" action="/FeverCheck">
+    <label></label>
+    <input type="number" label="Your temperature" name="temp" />
+    <input type="submit" />
+</form>
+
+@* - take in temperature number float/ int*@
+@* - check how high it is*@
+@* - notificate user if he has fever or not*@
+@* - define custom route /FeverCheck*@
+
+@* - create a form for it*@
+

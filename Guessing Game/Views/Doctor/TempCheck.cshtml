@@ -1,0 +1,21 @@
+﻿@using Guessing_Game.Models
+
+@{
+    ViewData["Title"] = "TempCheck";
+}
+
+<h1>Temparature after analys:</h1>
+
+
+@if(ViewBag.Temp == 0)
+{
+    <span>You need to enter a temperature to get your result.</span>
+}
+@if(ViewBag.Temp != 0)
+{
+    <span>Your result is: @Utility.CheckTemp(ViewBag.Temp)</span>
+}
+
+
+
+

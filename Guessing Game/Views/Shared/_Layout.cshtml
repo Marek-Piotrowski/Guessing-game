@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+    <link href="@Url.Content("~/bootstrap/css/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/main.css")" rel="stylesheet" type="text/css" />
+    
+    @RenderSection("Styles", false)
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+
+        <header class="head">
+            <nav class="navbar navbar-expand-xxl navbar-light bg-light">
+              <div class="container-fluid">
+                <a class="nav-link text-decoration-none" aria-current="page" asp-controller="Home" asp-action="Index" >
+                    Logo
+                    </a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav list-group">
+                    <li class="nav-item ms-4">
+                      <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Home" asp-action="About" >About</a>
+                    </li>
+                    <li class="nav-item ms-4 ">
+                        
+                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Home" asp-action="Contact" >Contact</a>
+                      
+                    </li>
+                    <li class="nav-item ms-4 ">    
+                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Home" asp-action="Projects" >Projects</a>
+                      
+                    </li>
+                    <li class="nav-item ms-4 ">    
+                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Doctor" asp-action="Index" >Check Temperature</a>
+                      
+                    </li>
+                    <li class="nav-item ms-4 ">    
+                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="GuessingGame" asp-action="Index" >Guessing Game</a>
+                      
+                    </li>
+                    
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            
+        </header>
+
+
+        <main class="container main">
+             @RenderBody()
+             
+        </main>
+            
+            
+
+
+        <footer class="footer"> @DateTime.Now.ToShortDateString() -  Marek Piotrowski</footer>
+    </div>
+</body>
+</html>

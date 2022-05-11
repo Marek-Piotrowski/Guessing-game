@@ -1,0 +1,26 @@
+﻿@using Guessing_Game.Models
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Guessing Game</h1>
+<span>A number between 1 - 100  has been generated!</span>
+<span>Your job is to guess that number!</span>
+
+<form method="post" action="/GuessingGame">
+    <label>Your number:</label>
+    <input type="number" label="Your number" name="number" />
+    <input type="submit" />
+</form>
+
+@if(ViewBag.Number != 34)
+{
+    <h1>Wrong number. Please try again. @ViewBag.Number</h1>
+}
+
+@if(ViewBag.Number == 34)
+{
+    <h1>Tak to dziala @Utility.CheckNumber(ViewBag.Number)</h1>
+}
+
