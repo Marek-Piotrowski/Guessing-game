@@ -18,6 +18,14 @@ namespace Guessing_Game
         {
             services.AddMvc();
             //services.AddControllersWithViews();
+            services.AddSession(options =>
+            {
+                // expire after 10 min
+                options.IdleTimeout = TimeSpan.FromMinutes(5);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,6 +39,8 @@ namespace Guessing_Game
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

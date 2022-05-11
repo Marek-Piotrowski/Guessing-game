@@ -11,16 +11,30 @@
 <form method="post" action="/GuessingGame">
     <label>Your number:</label>
     <input type="number" label="Your number" name="number" />
-    <input type="submit" />
+    <input type="submit" value="check your number" />
 </form>
 
-@if(ViewBag.Number != 34)
+<span>Your job is to guess that number!</span>
+@if(ViewBag.Number == ViewBag.Session)
 {
-    <h1>Wrong number. Please try again. @ViewBag.Number</h1>
+    <h1>Congrats! You win!! Secret number was. @ViewBag.Session</h1>
 }
 
-@if(ViewBag.Number == 34)
+@if(ViewBag.Number != ViewBag.Session)
 {
-    <h1>Tak to dziala @Utility.CheckNumber(ViewBag.Number)</h1>
+    if(ViewBag.Number == "Start game")
+    {
+        <h4> Just start guessing</h4>
+    }
+    else
+    {
+        <h4>Keep guessing</h4>
+        <h4>Your number was: @ViewBag.Number </h4>
+    }
+    
 }
+
+
+
+
 

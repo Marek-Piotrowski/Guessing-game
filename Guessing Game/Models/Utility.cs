@@ -12,7 +12,7 @@
             
         }
 
-        public static string CheckNumber(int number)
+        public static string ConvertNumberToString(int number)
         {
 
             return number.ToString();
