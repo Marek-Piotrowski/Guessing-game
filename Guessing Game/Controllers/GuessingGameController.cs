@@ -28,13 +28,14 @@ namespace Guessing_Game.Controllers
         public IActionResult Index(int number)
         {
             ViewBag.Session = HttpContext.Session.GetString("GuessSession");
+            ViewBag.Validation = Utility.CheckNumber(number, ViewBag.Session);
             
             ViewBag.Number = Utility.ConvertNumberToString(number);
 
             
 
             return View();
-            //redirectToAction("Index")
+            
         }
     }
 }

@@ -16,7 +16,8 @@ namespace Guessing_Game.Controllers
         [Route ("/FeverCheck")]
         public IActionResult TempCheck(int temp)
         {
-
+            string result = Utility.CheckTemp(temp);
+            ViewBag.Result = result;
             ViewBag.Temp = temp;
 
 

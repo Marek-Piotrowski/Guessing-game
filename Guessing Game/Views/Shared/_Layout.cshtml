@@ -13,32 +13,32 @@
 <body>
     <div>
 
-        <header class="head">
-            <nav class="navbar navbar-expand-xxl navbar-light bg-light">
+        <header >
+            <nav class="navbar navbar-expand-xxl navbar-dark bg-primary">
               <div class="container-fluid">
-                <a class="nav-link text-decoration-none" aria-current="page" asp-controller="Home" asp-action="Index" >
+                <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Home" asp-action="Index" >
                     Logo
                     </a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav list-group">
                     <li class="nav-item ms-4">
-                      <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Home" asp-action="About" >About</a>
+                      <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Home" asp-action="About" >About</a>
                     </li>
                     <li class="nav-item ms-4 ">
                         
-                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Home" asp-action="Contact" >Contact</a>
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Home" asp-action="Contact" >Contact</a>
                       
                     </li>
                     <li class="nav-item ms-4 ">    
-                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Home" asp-action="Projects" >Projects</a>
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Home" asp-action="Projects" >Projects</a>
                       
                     </li>
                     <li class="nav-item ms-4 ">    
-                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="Doctor" asp-action="Index" >Check Temperature</a>
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Doctor" asp-action="Index" >Check Temperature</a>
                       
                     </li>
                     <li class="nav-item ms-4 ">    
-                        <a class="nav-link text-decoration-none text-dark" aria-current="page" asp-controller="GuessingGame" asp-action="Index" >Guessing Game</a>
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="GuessingGame" asp-action="Index" >Guessing Game</a>
                       
                     </li>
                     
@@ -60,5 +60,7 @@
 
         <footer class="footer"> @DateTime.Now.ToShortDateString() -  Marek Piotrowski</footer>
     </div>
+    <script src="~/bootstrap/js/bootstrap.min.js" language="javascript" type="text/javascript">>
+    </script>
 </body>
 </html>

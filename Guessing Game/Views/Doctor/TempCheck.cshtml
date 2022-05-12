@@ -9,11 +9,11 @@
 
 @if(ViewBag.Temp == 0)
 {
-    <span>You need to enter a temperature to get your result.</span>
+    <p>You need to enter a temperature to get your result.</p>
 }
 @if(ViewBag.Temp != 0)
 {
-    <span>Your result is: @Utility.CheckTemp(ViewBag.Temp)</span>
+    <p>Your result is: @ViewBag.Result</p>
 }
 
 

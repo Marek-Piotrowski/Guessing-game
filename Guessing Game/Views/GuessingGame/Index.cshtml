@@ -5,35 +5,41 @@
 }
 
 <h1>Guessing Game</h1>
-<span>A number between 1 - 100  has been generated!</span>
-<span>Your job is to guess that number!</span>
+<hr />
+<p>A number between 1 - 100  has been generated!</p>
+<p>Your job is to guess that number!</p>
+<hr />
 
 <form method="post" action="/GuessingGame">
     <label>Your number:</label>
     <input type="number" label="Your number" name="number" />
-    <input type="submit" value="check your number" />
+    <input type="submit" value="Check" />
 </form>
 
-<span>Your job is to guess that number!</span>
+
 @if(ViewBag.Number == ViewBag.Session)
 {
-    <h1>Congrats! You win!! Secret number was. @ViewBag.Session</h1>
+    <h2>Congrats! You win!! Secret number was. @ViewBag.Session</h2>
+    
+        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="GuessingGame" asp-action="Index" >
+            <button type="button" class="btn btn-warning"> Restart Game</button>
+        </a>
 }
 
 @if(ViewBag.Number != ViewBag.Session)
 {
     if(ViewBag.Number == "Start game")
     {
-        <h4> Just start guessing</h4>
+        <h4> Enter your number and start the game.</h4>
     }
     else
     {
         <h4>Keep guessing</h4>
         <h4>Your number was: @ViewBag.Number </h4>
+        <h4>It is: @ViewBag.Validation </h4>
     }
     
 }
-
 
 
 
