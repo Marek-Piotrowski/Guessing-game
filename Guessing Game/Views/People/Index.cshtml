@@ -1,0 +1,61 @@
+﻿@using Guessing_Game.Models
+@model Guessing_Game.Models.PeopleViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br></br>
+
+
+<form method="get" action="/People">
+    <label></label>
+    <input type="text" label="" name="searchQuery" />
+    <input type="submit" value="Search" />
+</form>
+
+<br></br>
+
+
+
+
+<form method="post" action="/People" >
+    <label></label>
+    <div asp-validation-summary=All class="text-danger"> </div>
+    
+    <input  name="NewName" type="text" placeholder="Name" />
+    @*<span asp-validation-for="person.NewName" class="text-danger"></span>*@
+   
+
+    <input  name="NewCity" type="text"  placeholder="City" />
+    @*<span asp-validation-for="person.NewCity" class="text-danger"></span>*@
+
+    <input  name="NewPhone" type="text" placeholder="Phone number" />
+    @*<span asp-validation-for="person.NewPhone" class="text-danger"></span>*@
+
+    <input type="submit" value="Add" />
+</form>
+
+<br></br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">City</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Link do delete</th>
+    </tr>
+  </thead>
+  <tbody>
+
+      @Html.Partial("_PersonList",Model.people)
+     
+
+    
+  </tbody>
+</table>
+
+
+

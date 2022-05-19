@@ -10,10 +10,10 @@ namespace Guessing_Game.Models
         {
 
             if (temp < 37 && temp > 35)  return temp_info = "You are healthy";
-            else if (temp < 35 && temp > 32)  return temp_info = "You have hipotermia stadium 1 - mild";
-            else if (temp < 32 && temp > 28)  return temp_info = "You have hipotermia stadium 2 - moderate";
-            else if (temp < 28 && temp > 20)  return temp_info = "You have hipotermia stadium 3 - severe ";
-            else if (temp < 20)  return temp_info = "You have hipotermia stadium 4 - profound ";
+            else if (temp <= 35 && temp > 32)  return temp_info = "You have hipotermia stadium 1 - mild";
+            else if (temp <= 32 && temp > 28)  return temp_info = "You have hipotermia stadium 2 - moderate";
+            else if (temp <= 28 && temp > 20)  return temp_info = "You have hipotermia stadium 3 - severe ";
+            else if (temp <= 20)  return temp_info = "You have hipotermia stadium 4 - profound ";
             else  return temp_info =  "You have fever";
             
         }
@@ -34,5 +34,7 @@ namespace Guessing_Game.Models
             else return "Correct";
 
         }
+
+        
     }
 }

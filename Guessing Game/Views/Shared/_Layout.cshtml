@@ -41,6 +41,10 @@
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="GuessingGame" asp-action="Index" >Guessing Game</a>
                       
                     </li>
+                    <li class="nav-item ms-4 ">    
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="People" asp-action="Index" >People</a>
+                      
+                    </li>
                     
                   </ul>
                 </div>
@@ -50,7 +54,7 @@
         </header>
 
 
-        <main class="container main">
+        <main id="override" class="container main">
              @RenderBody()
              
         </main>
@@ -60,7 +64,8 @@
 
         <footer class="footer"> @DateTime.Now.ToShortDateString() -  Marek Piotrowski</footer>
     </div>
-    <script src="~/bootstrap/js/bootstrap.min.js" language="javascript" type="text/javascript">>
-    </script>
+    <script src="~/bootstrap/js/bootstrap.min.js" language="javascript" type="text/javascript"></script>
+    <script src="~/lib/jquery/jquery.min.js" language="javascript" type="text/javascript"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js" language="javascript" type="text/javascript"></script>
 </body>
 </html>
