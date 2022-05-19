@@ -38,7 +38,7 @@
 
 <br></br>
 
-<table class="table">
+@*<table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -49,13 +49,36 @@
     </tr>
   </thead>
   <tbody>
+    
+        @foreach(Person item in Model.people)
+        {
+           <partial name="_PersonItem" model="item"/>
 
-      @Html.Partial("_PersonList",Model.people)
+        }
+
+      @@Html.Partial("_PersonList",Model.people)*@
      
 
     
-  </tbody>
-</table>
+ @* * </tbody>
+</table>*@
+
+<div class="row" >
+    <div class="col-md-1">#</div>
+    <div class="col-md-3">Name</div>
+    <div class="col-md-3">City</div>
+    <div class="col-md-3">Phone Number</div>
+    <div class="col-md-2">Link to delete</div>
+</div>
+    <br />
+    @foreach(Person item in Model.people)
+        {
+           <partial name="_PersonItem" model="item"/>
+
+        }
+
+
+
 
 
 

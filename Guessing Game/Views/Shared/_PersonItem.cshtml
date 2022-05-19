@@ -1,0 +1,13 @@
+﻿@model Guessing_Game.Models.Person
+
+
+
+<div class="row">
+    <div class="col-md-1">@Model.Id</div>
+    <div class="col-md-3">@Model.Name</div>
+    <div class="col-md-3">@Model.City</div>
+    <div class="col-md-3">@Model.PhoneNumber</div>
+    <div class="col-md-2">@Html.ActionLink("Delete user", "RemoveUser","People", new {id = Model.Id})</div>
+</div>
+
+
