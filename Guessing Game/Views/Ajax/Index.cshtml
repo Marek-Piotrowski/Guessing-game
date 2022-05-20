@@ -1,0 +1,38 @@
+﻿@model List<Guessing_Game.Models.Person>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br />
+
+
+<div class="row">
+    <div class="col-md-4">
+        <button id="buttonPeople" class="btn btn-primary">People</button>
+    </div>
+    <div class="col-md-4">
+           
+        <input id="personID" type="text" name="personID" placeholder="Person Id" />
+        <button  id="buttonDetails" class="btn btn-success">Details</button>
+
+    </div>
+
+
+    <div class="col-md-4">
+        <input id="DeletePersonID" type="text" name="personID" placeholder="Person Id" />
+        <button id="buttonDelete" class="btn btn-warning">Delete</button>
+    </div>
+
+
+</div>
+
+<div id="toOverride" class="toOverride">
+
+    <h1> This message will be override as soon as you click the button</h1>
+   
+
+    @*<partial name="_PersonList" model="Model"/>*@
+
+</div>
+
+
