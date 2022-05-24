@@ -34,9 +34,9 @@ namespace Guessing_Game.Controllers
 
             
 
-            if (PeopleList._list.Find(x => x.Id == number) != null)
+            if (PeopleList._list.Find(x => x.PersonId == number) != null)
             {
-                Person queryperson = PeopleList._list.Find(x => x.Id == number);
+                Person queryperson = PeopleList._list.Find(x => x.PersonId == number);
 
                 return PartialView("_PersonItem",queryperson);
             }
@@ -55,9 +55,9 @@ namespace Guessing_Game.Controllers
 
 
 
-            if (PeopleList._list.Find(x => x.Id == number) != null)
+            if (PeopleList._list.Find(x => x.PersonId == number) != null)
             {
-                Person queryperson = PeopleList._list.Find(x => x.Id == number);
+                Person queryperson = PeopleList._list.Find(x => x.PersonId == number);
 
                 PeopleList._list.Remove(queryperson);
 

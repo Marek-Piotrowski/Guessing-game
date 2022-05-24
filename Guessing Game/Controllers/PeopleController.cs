@@ -58,7 +58,7 @@ namespace Guessing_Game.Controllers
                     Name = person.NewName,
                     City = person.NewCity,
                     PhoneNumber = person.NewPhone,
-                    Id = number,
+                    PersonId = number,
                 };
 
                 PeopleList._list.Add(personModel);
@@ -89,7 +89,7 @@ namespace Guessing_Game.Controllers
 
             int number = int.Parse(id);
 
-            Person PersonToDelete = PeopleList._list.Find(x => x.Id == number);
+            Person PersonToDelete = PeopleList._list.Find(x => x.PersonId == number);
 
             PeopleList._list.Remove(PersonToDelete);
 

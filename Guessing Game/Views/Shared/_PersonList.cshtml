@@ -3,11 +3,11 @@
 
 @foreach(var item in Model){
     <tr>
-      <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+      <th scope="row">@Html.DisplayFor(modelItem => item.PersonId)</th>
       <td>@Html.DisplayFor(modelItem => item.Name)</td>
       <td>@Html.DisplayFor(modelItem => item.City)</td>
       <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-      <td>@Html.ActionLink("Delete user", "RemoveUser","People", new {id = item.Id})</td>
+      <td>@Html.ActionLink("Delete user", "RemoveUser","People", new {id = item.PersonId})</td>
     </tr>
 }
 
