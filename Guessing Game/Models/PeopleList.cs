@@ -9,7 +9,7 @@ namespace Guessing_Game.Models
         static PeopleList()
         {
             // Allocate the list.
-            _list = PeopleViewModel.GetPersonList();
+            //_list = PeopleViewModel.GetPersonList();
         }
 
         
