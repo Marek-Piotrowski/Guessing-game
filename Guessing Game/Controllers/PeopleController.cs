@@ -1,6 +1,7 @@
 ﻿using Guessing_Game.Data;
 using Guessing_Game.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Guessing_Game.Controllers
             PeopleViewModel viewModel = new PeopleViewModel();
             CreatePersonViewModel newPerson = new CreatePersonViewModel();
 
+            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+
             viewModel.people = _appContext.People.ToList();
 
             string search = null;
@@ -35,7 +38,7 @@ namespace Guessing_Game.Controllers
 
             if(search != null)
             {
-                persons = _appContext.People.Where(p => p.Name.ToLower().Contains(searchQuery) || p.City.ToLower().Contains(searchQuery) || p.PhoneNumber.ToLower().Contains(searchQuery)).ToList();
+                persons = _appContext.People.Where(p => p.Name.ToLower().Contains(searchQuery) || p.City.CityName.ToLower().Contains(searchQuery) || p.PhoneNumber.ToLower().Contains(searchQuery)).ToList();
 
                 viewModel.people = persons;
                 viewModel.person = newPerson;
@@ -49,23 +52,26 @@ namespace Guessing_Game.Controllers
 
         [HttpPost]
         [Route("/People")]
-        public IActionResult Index(CreatePersonViewModel person )
+        public IActionResult Index(CreatePersonViewModel person,string CityName)
         {
             PeopleViewModel viewModel = new PeopleViewModel();
-            CreatePersonViewModel newPerson = new CreatePersonViewModel();
+            
 
-            int number = _appContext.People.Count() + 1;
+            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+
+            City cityToAdd = _appContext.Cities.FirstOrDefault(c => c.CityName == CityName);
+
 
             if (ModelState.IsValid)
             {
                 Person personModel = new Person()
                 {
                     Name = person.NewName,
-                    City = person.NewCity,
                     PhoneNumber = person.NewPhone,
-                    PersonId = number,
+                    CityId = cityToAdd.CityId,
+                   
                 };
-
+              
                 _appContext.People.Add(personModel);
                 _appContext.SaveChanges();
 
@@ -73,7 +79,6 @@ namespace Guessing_Game.Controllers
                 viewModel.people = _appContext.People.ToList();
 
                 return View(viewModel);
-                
             }
 
             viewModel.people = _appContext.People.ToList();
@@ -82,35 +87,18 @@ namespace Guessing_Game.Controllers
             // return View("Index",person)
             return View(viewModel);
         }
+       
 
-        
-        [Route("/People/{id?}")]
-        public IActionResult RemoveUser(string id)
+        public IActionResult Remove(Person person)
         {
-            List<Person> persons = new List<Person>();
-            PeopleViewModel viewModel = new PeopleViewModel();
-            CreatePersonViewModel newPerson = new CreatePersonViewModel();
+            Person personToRemove = _appContext.People.Find(person.PersonId);
 
-            viewModel.people = _appContext.People.ToList();
 
-            int number = int.Parse(id);
-
-            Person PersonToDelete = _appContext.People.FirstOrDefault(x => x.PersonId == number); //Find(x => x.PersonId == number);  //(x => x.PersonId == number);
-
-             _appContext.People.Remove(PersonToDelete);
+            _appContext.People.Remove(personToRemove);
             _appContext.SaveChanges();
+            return RedirectToAction("Index");
 
-            viewModel.people = _appContext.People.ToList();
-
-
-            //people = PeopleViewModel.GetPersonList().Where(p => p.Name != id).ToList();
-
-            return View("Index",viewModel);
         }
-
-
-
-
 
 
 

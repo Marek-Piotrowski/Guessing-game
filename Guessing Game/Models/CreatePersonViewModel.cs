@@ -10,9 +10,7 @@ namespace Guessing_Game.Models
         [StringLength(15)]
         public string NewName { get; set; }
 
-        [Required(ErrorMessage = "Enter your city")]
-        [StringLength(20)]
-        public string NewCity { get; set; }
+        public string CityId { get; set; }
 
         [Required(ErrorMessage = "Enter your phone number")]
         [StringLength(12)]

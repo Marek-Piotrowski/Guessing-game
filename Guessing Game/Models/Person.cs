@@ -10,7 +10,10 @@ namespace Guessing_Game.Models
         public int PersonId { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public string City { get; set; }
+
+        //navigation property
+        public int CityId { get; set; }
+        public City City { get; set; }
 
 
     }

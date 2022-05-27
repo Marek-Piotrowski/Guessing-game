@@ -1,0 +1,31 @@
+﻿@using Guessing_Game.Models
+@model IEnumerable<Country>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Countries</h1>
+
+<a asp-action="AddCountry">Add Country</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Country</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Country item in Model)
+        {
+            <tr>
+                <td>@item.CountryId</td>
+                <td>@item.CountryName</td>
+                @*<td><a asp-action="Remove" asp-route-country="@item">Remove</a></td>*@
+                <td><a asp-action="Remove" asp-controller="Country" asp-route-countryId="@item.CountryId">Remove</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

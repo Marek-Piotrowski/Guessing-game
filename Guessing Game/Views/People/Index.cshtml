@@ -16,66 +16,38 @@
 
 <br></br>
 
-
-
-
-<form method="post" action="/People" >
-    <label></label>
-    <div asp-validation-summary=All class="text-danger"> </div>
+<form asp-action="Index"  method="post">
+    <div class="form-group">
+        <input  name="NewName" type="text" placeholder="Name" />
+    </div>
     
-    <input  name="NewName" type="text" placeholder="Name" />
-    @*<span asp-validation-for="person.NewName" class="text-danger"></span>*@
-   
-
-    <input  name="NewCity" type="text"  placeholder="City" />
-    @*<span asp-validation-for="person.NewCity" class="text-danger"></span>*@
-
-    <input  name="NewPhone" type="text" placeholder="Phone number" />
-    @*<span asp-validation-for="person.NewPhone" class="text-danger"></span>*@
-
-    <input type="submit" value="Add" />
+    <div class="form-group">
+        <input  name="NewPhone" type="text" placeholder="Phone number" />
+    </div>
+    <div class="form-group">
+       <select name="CityName" class="form-control" asp-items="ViewBag.Cities" ></select>
+    </div>
+    <input type="submit" value="Add" class="btn btn-primary" />
 </form>
+
 
 <br></br>
 
-@*<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">City</th>
-      <th scope="col">Phone Number</th>
-      <th scope="col">Link do delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-        @foreach(Person item in Model.people)
-        {
-           <partial name="_PersonItem" model="item"/>
 
-        }
-
-      @@Html.Partial("_PersonList",Model.people)*@
-     
-
-    
- @* * </tbody>
-</table>*@
 
 <div class="row" >
     <div class="col-md-1">#</div>
     <div class="col-md-3">Name</div>
-    <div class="col-md-3">City</div>
     <div class="col-md-3">Phone Number</div>
+    <div class="col-md-3">City ID</div>
     <div class="col-md-2">Link to delete</div>
 </div>
     <br />
     @foreach(Person item in Model.people)
-        {
-           <partial name="_PersonItem" model="item"/>
+     {
+       <partial name="_PersonItem" model="item"/>
 
-        }
+     }
 
 
 

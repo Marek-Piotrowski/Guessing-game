@@ -1,0 +1,19 @@
+﻿@using Guessing_Game.Models
+@model City
+@{
+    ViewData["Title"] = "AddCity";
+}
+
+<h1>AddCity</h1>
+<form asp-action="AddCity" method="post">
+    <div class="form-group">
+        <input asp-for="CityName"></input>
+    </div>
+    <div class="form-group">
+        <label> Country</label>
+       <select name="CountryName" class="form-control" asp-items="@ViewBag.Countries" ></select>
+    </div>
+     <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Add" />
+    </div>
+</form>

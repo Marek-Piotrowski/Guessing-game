@@ -1,0 +1,10 @@
+﻿@model Guessing_Game.Models.City
+
+
+
+<div class="row">
+    <div class="col-md-1">@Model.CityId</div>
+    <div class="col-md-3">@Model.CityName</div>
+    @*div class="col-md-2">@Html.ActionLink("Delete user", "RemoveUser","People", new {id = Model.PersonId})</div>*@
+    <div class="col-md-2"><a asp-action="Remove" asp-controller="City" asp-route-cityId=@Model.CityId>Remove</a></div>
+</div>
