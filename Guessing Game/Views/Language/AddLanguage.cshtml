@@ -1,0 +1,16 @@
+﻿@using Guessing_Game.Models
+@model Language
+@{
+    ViewData["Title"] = "AddLanguage";
+}
+
+<h1>Add language</h1>
+
+<form asp-action="AddLanguage" method="post">
+    <div class="form-group">
+        <input asp-for="LanguageName"></input>
+    </div>
+     <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Add" />
+    </div>
+</form>

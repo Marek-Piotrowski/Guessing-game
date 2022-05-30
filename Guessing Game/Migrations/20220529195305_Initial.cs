@@ -20,6 +20,19 @@ namespace Guessing_Game.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Languages",
+                columns: table => new
+                {
+                    LanguageId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LanguageName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Languages", x => x.LanguageId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
@@ -60,6 +73,30 @@ namespace Guessing_Game.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PersonLanguages",
+                columns: table => new
+                {
+                    PersonId = table.Column<int>(nullable: false),
+                    LanguageId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonLanguages", x => new { x.PersonId, x.LanguageId });
+                    table.ForeignKey(
+                        name: "FK_PersonLanguages_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "LanguageId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonLanguages_People_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "People",
+                        principalColumn: "PersonId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Countries",
                 columns: new[] { "CountryId", "CountryName" },
@@ -70,6 +107,18 @@ namespace Guessing_Game.Migrations
                     { 3, "Spain" },
                     { 4, "Norway" },
                     { 5, "Poland" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Languages",
+                columns: new[] { "LanguageId", "LanguageName" },
+                values: new object[,]
+                {
+                    { 1, "Spanish" },
+                    { 2, "Swedish" },
+                    { 3, "English" },
+                    { 4, "Chinese" },
+                    { 5, "Polish" }
                 });
 
             migrationBuilder.InsertData(
@@ -96,6 +145,18 @@ namespace Guessing_Game.Migrations
                     { 3, 4, "Gilbert", "774-375-333" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "PersonLanguages",
+                columns: new[] { "PersonId", "LanguageId" },
+                values: new object[,]
+                {
+                    { 1, 4 },
+                    { 4, 1 },
+                    { 2, 2 },
+                    { 5, 3 },
+                    { 3, 5 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_CountryId",
                 table: "Cities",
@@ -105,10 +166,21 @@ namespace Guessing_Game.Migrations
                 name: "IX_People_CityId",
                 table: "People",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonLanguages_LanguageId",
+                table: "PersonLanguages",
+                column: "LanguageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "PersonLanguages");
+
+            migrationBuilder.DropTable(
+                name: "Languages");
+
             migrationBuilder.DropTable(
                 name: "People");
 

@@ -7,7 +7,12 @@
 
 <h1>Cities</h1>
 
-<a asp-action="AddCity">Add City</a>
+<a asp-action="AddCity">
+    <button class="btn btn-primary">
+        Add City
+    </button>
+</a>
+
 
 <table class="table">
     <thead>
@@ -23,8 +28,7 @@
             <tr>
                 <td>@item.CityId</td>
                 <td>@item.CityName</td>
-                <td>@item.CountryId</td>
-                @*<td><a asp-action="Remove" asp-route-country="@item">Remove</a></td>*@
+                <td>@((ViewBag.countries as List<Country>).Find(d => d.CountryId == item.CountryId).CountryName)</td>
                 <td><a asp-action="Remove" asp-controller="City" asp-route-cityId="@item.CityId">Remove</a></td>
             </tr>
         }

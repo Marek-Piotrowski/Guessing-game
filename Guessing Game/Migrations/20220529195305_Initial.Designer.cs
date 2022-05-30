@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Guessing_Game.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220527210911_Initial")]
+    [Migration("20220529195305_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,6 +114,48 @@ namespace Guessing_Game.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Guessing_Game.Models.Language", b =>
+                {
+                    b.Property<int>("LanguageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LanguageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LanguageId");
+
+                    b.ToTable("Languages");
+
+                    b.HasData(
+                        new
+                        {
+                            LanguageId = 1,
+                            LanguageName = "Spanish"
+                        },
+                        new
+                        {
+                            LanguageId = 2,
+                            LanguageName = "Swedish"
+                        },
+                        new
+                        {
+                            LanguageId = 3,
+                            LanguageName = "English"
+                        },
+                        new
+                        {
+                            LanguageId = 4,
+                            LanguageName = "Chinese"
+                        },
+                        new
+                        {
+                            LanguageId = 5,
+                            LanguageName = "Polish"
+                        });
+                });
+
             modelBuilder.Entity("Guessing_Game.Models.Person", b =>
                 {
                     b.Property<int>("PersonId")
@@ -174,6 +216,48 @@ namespace Guessing_Game.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Guessing_Game.Models.PersonLanguage", b =>
+                {
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonId", "LanguageId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("PersonLanguages");
+
+                    b.HasData(
+                        new
+                        {
+                            PersonId = 4,
+                            LanguageId = 1
+                        },
+                        new
+                        {
+                            PersonId = 2,
+                            LanguageId = 2
+                        },
+                        new
+                        {
+                            PersonId = 5,
+                            LanguageId = 3
+                        },
+                        new
+                        {
+                            PersonId = 1,
+                            LanguageId = 4
+                        },
+                        new
+                        {
+                            PersonId = 3,
+                            LanguageId = 5
+                        });
+                });
+
             modelBuilder.Entity("Guessing_Game.Models.City", b =>
                 {
                     b.HasOne("Guessing_Game.Models.Country", "Country")
@@ -188,6 +272,21 @@ namespace Guessing_Game.Migrations
                     b.HasOne("Guessing_Game.Models.City", "City")
                         .WithMany("People")
                         .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Guessing_Game.Models.PersonLanguage", b =>
+                {
+                    b.HasOne("Guessing_Game.Models.Language", "Language")
+                        .WithMany("PersonLanguages")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Guessing_Game.Models.Person", "Person")
+                        .WithMany("PersonLanguages")
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

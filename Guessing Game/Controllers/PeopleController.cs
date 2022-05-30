@@ -24,9 +24,22 @@ namespace Guessing_Game.Controllers
             PeopleViewModel viewModel = new PeopleViewModel();
             CreatePersonViewModel newPerson = new CreatePersonViewModel();
 
-            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
-
             viewModel.people = _appContext.People.ToList();
+
+            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+            ViewBag.Languages = new SelectList(_appContext.Languages, "LanguageName", "LanguageName");
+
+            //languages for ViewBag
+            var langs = _appContext.Languages.ToList();
+            ViewBag.langs = langs;
+
+            //personlangs for ViewBag
+            var personlangs = _appContext.PersonLanguages.ToList();
+            ViewBag.personlangs = personlangs;
+
+            //cities for ViewBag
+            var personCities = _appContext.Cities.ToList();
+            ViewBag.personCities = personCities; 
 
             string search = null;
 
@@ -52,14 +65,14 @@ namespace Guessing_Game.Controllers
 
         [HttpPost]
         [Route("/People")]
-        public IActionResult Index(CreatePersonViewModel person,string CityName)
+        public IActionResult Index(CreatePersonViewModel person,string CityName,string LanguageName)
         {
             PeopleViewModel viewModel = new PeopleViewModel();
-            
 
-            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+            viewModel.people = _appContext.People.ToList();
 
             City cityToAdd = _appContext.Cities.FirstOrDefault(c => c.CityName == CityName);
+            Language languageToAdd = _appContext.Languages.FirstOrDefault(c => c.LanguageName == LanguageName);
 
 
             if (ModelState.IsValid)
@@ -75,17 +88,36 @@ namespace Guessing_Game.Controllers
                 _appContext.People.Add(personModel);
                 _appContext.SaveChanges();
 
+                PersonLanguage personlanguage = new PersonLanguage()
+                {
+                     PersonId = personModel.PersonId,
+                     LanguageId = languageToAdd.LanguageId,
+                };
+
+                _appContext.PersonLanguages.Add(personlanguage);
+                _appContext.SaveChanges();
+
                 viewModel.person = person;
                 viewModel.people = _appContext.People.ToList();
 
-                return View(viewModel);
+                //person languages for ViewBag
+                var langs = _appContext.Languages.ToList();
+                ViewBag.langs = langs;
+
+                //personlangs for ViewBag
+                var personlangs = _appContext.PersonLanguages.ToList();
+                ViewBag.personlangs = personlangs;
+                //cities for ViewBag
+                var personCities = _appContext.Cities.ToList();
+                ViewBag.personCities = personCities;
+
+                //return View(viewModel);
+                return RedirectToAction("Index");
             }
 
-            viewModel.people = _appContext.People.ToList();
             viewModel.person = person;
 
-            // return View("Index",person)
-            return View(viewModel);
+            return RedirectToAction("Index",viewModel);
         }
        
 
@@ -93,8 +125,22 @@ namespace Guessing_Game.Controllers
         {
             Person personToRemove = _appContext.People.Find(person.PersonId);
 
+            var listLanguages = _appContext.Languages.ToList();
+            var personLanguages = _appContext.PersonLanguages.ToList();
+
+            Language lant = listLanguages.Find(d => d.LanguageId == personLanguages.Find(c => c.PersonId == person.PersonId).LanguageId);
+
+            //PersonLanguage langToDelete = _appContext.PersonLanguages.Find(person.PersonId, null); 
+
+            PersonLanguage personLangToRemove = new PersonLanguage()
+            {
+                LanguageId = lant.LanguageId,
+                PersonId = personToRemove.PersonId,
+            };
+
 
             _appContext.People.Remove(personToRemove);
+            _appContext.PersonLanguages.Remove(personLangToRemove);
             _appContext.SaveChanges();
             return RedirectToAction("Index");
 

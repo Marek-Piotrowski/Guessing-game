@@ -13,6 +13,8 @@ namespace Guessing_Game.Data
         public DbSet<Person> People { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<PersonLanguage> PersonLanguages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +23,7 @@ namespace Guessing_Game.Data
             //.Property(c => c.PersonId)
             //.ValueGeneratedNever();
 
+            modelBuilder.Entity<PersonLanguage>().HasKey(co => new { co.PersonId, co.LanguageId });
 
             //City data seeding till Context
             modelBuilder.Entity<City>().HasData(new City { CityName = "Stockholm", CityId = 1, CountryId = 1 });
@@ -43,6 +46,21 @@ namespace Guessing_Game.Data
             modelBuilder.Entity<Person>().HasData(new Person { Name = "Brad", PhoneNumber = "775-346-312", PersonId = 4, CityId = 5 });
             modelBuilder.Entity<Person>().HasData(new Person { Name = "Luka", PhoneNumber = "775-314-347", PersonId = 5, CityId = 3 });
 
+            //Language data seeding till Context
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Spanish", LanguageId = 1 });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Swedish", LanguageId = 2 });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "English", LanguageId = 3 });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Chinese", LanguageId = 4 });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Polish", LanguageId = 5 });
+
+            //Language data seeding till Context
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 1, PersonId = 4});
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 2, PersonId = 2});
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 3, PersonId = 5});
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 4, PersonId = 1});
+            modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 5, PersonId = 3});
+
+
 
 
             //City -> List of People relation - 1 to many
@@ -55,9 +73,21 @@ namespace Guessing_Game.Data
             modelBuilder.Entity<Country>()
                 .HasMany(co => co.Cities)
                 .WithOne(c => c.Country);
-              
-                
-                
+
+            
+
+            // 2 x one to many = many to many
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne(co => co.Language)
+                .WithMany(c => c.PersonLanguages)
+                .HasForeignKey(c => c.LanguageId);
+
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne(co => co.Person)
+                .WithMany(c => c.PersonLanguages)
+                .HasForeignKey(c => c.PersonId);
+
+
 
         }
     }

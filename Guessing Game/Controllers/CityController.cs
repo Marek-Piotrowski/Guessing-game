@@ -18,7 +18,9 @@ namespace Guessing_Game.Controllers
         {
             List<City> listOfCities = _appContext.Cities.ToList();
 
-            //ViewBag.Countries = _appContext.Countries.ToList();
+            var countries  = _appContext.Countries.ToList();
+
+            ViewBag.countries = countries;
 
 
             return View(listOfCities);

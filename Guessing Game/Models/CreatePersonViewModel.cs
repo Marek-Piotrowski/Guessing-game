@@ -16,6 +16,10 @@ namespace Guessing_Game.Models
         [StringLength(12)]
         [DataType(DataType.PhoneNumber)]
         public string NewPhone { get; set; }
+
+        public List<PersonLanguage> lang { get; set; }
+
+        
         
         
     }

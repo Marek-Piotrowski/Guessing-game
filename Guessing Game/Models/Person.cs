@@ -15,6 +15,8 @@ namespace Guessing_Game.Models
         public int CityId { get; set; }
         public City City { get; set; }
 
+        public List<PersonLanguage> PersonLanguages { get; set; }
+
 
     }
 }
