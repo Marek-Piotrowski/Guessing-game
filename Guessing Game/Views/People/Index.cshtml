@@ -17,17 +17,15 @@
 <br></br>
 
 <form asp-action="Index"  method="post">
-    <div asp-validation-summary="All"></div> 
+    <div asp-validation-summary=All class="text-danger"></div>
     <div class="form-group">
-        <input  name="NewName" type="text" placeholder="Name" />
+        <input name="NewName" type="text" placeholder="Name" />
     </div>
-    @*@Html.ValidationMessageFor(model =>model.person.NewName, "", new { @class = "text-danger" })*@
-    <span asp-validation-for="person.NewName" class="text-danger"></span>
+    @*<span asp-validation-for=@Model.person class="text-danger"> </span>*@
     <div class="form-group">
         <input  name="NewPhone" type="text" placeholder="Phone number" />
     </div>
-    @*@Html.ValidationMessageFor(model =>model.person.NewPhone, "", new { @class = "text-danger" })*@
-    <span asp-validation-for="person.NewPhone" class="text-danger"></span>
+    @*<span asp-validation-for="@Model.person" class="text-danger"></span>*@
     <div class="form-group">
         <label>Select City</label>
        <select name="CityName" class="form-control" asp-items="ViewBag.Cities" ></select>

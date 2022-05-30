@@ -65,7 +65,7 @@ namespace Guessing_Game.Controllers
 
         [HttpPost]
         [Route("/People")]
-        public IActionResult Index(CreatePersonViewModel person,string CityName,string LanguageName)
+        public IActionResult Index([Bind("NewName,NewPhone")] CreatePersonViewModel person,string CityName,string LanguageName)
         {
             PeopleViewModel viewModel = new PeopleViewModel();
 
@@ -115,9 +115,21 @@ namespace Guessing_Game.Controllers
                 return RedirectToAction("Index");
             }
 
-            viewModel.person = person;
+            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+            ViewBag.Languages = new SelectList(_appContext.Languages, "LanguageName", "LanguageName");
 
-            return RedirectToAction("Index",viewModel);
+            //person languages for ViewBag
+            ViewBag.langs = _appContext.Languages.ToList();
+
+            //personlangs for ViewBag
+            ViewBag.personlangs = _appContext.PersonLanguages.ToList();
+            //cities for ViewBag
+            ViewBag.personCities = _appContext.Cities.ToList();
+
+            //viewModel.person = person;
+
+            //return RedirectToAction("Index",viewModel);
+            return View(viewModel);
         }
        
 
