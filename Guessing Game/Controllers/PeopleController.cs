@@ -98,7 +98,8 @@ namespace Guessing_Game.Controllers
 
             //people = PeopleViewModel.GetPersonList().Where(p => p.Name != id).ToList();
 
-            return View("Index",viewModel);
+            //return View("Index",viewModel);
+            return RedirectToAction("Index",viewModel);
         }
 
 

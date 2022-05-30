@@ -1,14 +1,27 @@
 ﻿@model List<Guessing_Game.Models.Person>
 
+<div class="row" >
+    <div class="col-md-1">#</div>
+    <div class="col-md-3">Name</div>
+    <div class="col-md-3">City</div>
+    <div class="col-md-3">Phone Number</div>
+    <div class="col-md-2">Link to delete</div>
+</div>
+ <br />
 
 @foreach(var item in Model){
-    <tr>
-      <th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
-      <td>@Html.DisplayFor(modelItem => item.Name)</td>
-      <td>@Html.DisplayFor(modelItem => item.City)</td>
-      <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-      <td>@Html.ActionLink("Delete user", "RemoveUser","People", new {id = item.Id})</td>
-    </tr>
+
+    <div class="row">
+        <div class="col-md-1">@item.Id</div>
+        <div class="col-md-3">@item.Name</div>
+        <div class="col-md-3">@item.City</div>
+        <div class="col-md-3">@item.PhoneNumber</div>
+        <div class="col-md-2">@Html.ActionLink("Delete user", "RemoveUser","People", new {id = @item.Id})</div>
+        
+        
+    </div>
+
+   
 }
 
     

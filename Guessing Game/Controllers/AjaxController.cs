@@ -20,6 +20,8 @@ namespace Guessing_Game.Controllers
         public IActionResult People()
         {
             PeopleViewModel model = new PeopleViewModel();
+            model.people = PeopleList._list;
+
 
             return PartialView("_PersonList",model.people);
         }

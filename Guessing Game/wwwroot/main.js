@@ -8,6 +8,7 @@ const deleteInput = $("#DeletePersonID");
 
 
 
+
 const URL1 = "http://localhost:25586/Ajax/People"
 const URL2 = "http://localhost:25586/Ajax"
 const URL3 = "http://localhost:25586/Ajax/Delete"
