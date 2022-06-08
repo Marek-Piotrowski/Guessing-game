@@ -1,9 +1,10 @@
 ﻿using Guessing_Game.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Guessing_Game.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -18,6 +19,8 @@ namespace Guessing_Game.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             //added to disable auto-increment function on Person ID
             //modelBuilder.Entity<Person>()
             //.Property(c => c.PersonId)

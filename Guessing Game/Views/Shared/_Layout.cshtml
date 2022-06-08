@@ -59,6 +59,7 @@
                     <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Language" asp-action="Index" >Languages</a>
                     </li>
+                    <partial name=_LoginPartial />
                   </ul>
                 </div>
               </div>
@@ -83,5 +84,6 @@
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js" language="javascript" type="text/javascript"></script>
     
     <script src="~/main.js" language="javascript" type="text/javascript" defer></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

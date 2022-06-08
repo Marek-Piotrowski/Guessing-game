@@ -1,7 +1,9 @@
 using Guessing_Game.Data;
+using Guessing_Game.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +42,12 @@ namespace Guessing_Game
             });
             // adding DbContext to database
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<AppUser, IdentityRole>(opt =>
+            opt.SignIn.RequireConfirmedAccount = false
+            ).AddDefaultUI()
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +62,9 @@ namespace Guessing_Game
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseSession();
 
             app.UseEndpoints(endpoints =>
@@ -61,6 +72,7 @@ namespace Guessing_Game
                endpoints.MapControllerRoute(
                    name: "default",
                    pattern:"{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
