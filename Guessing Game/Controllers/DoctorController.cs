@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Guessing_Game.Models;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Guessing_Game.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DoctorController : Controller
     {
         [Route("/FeverCheck")]

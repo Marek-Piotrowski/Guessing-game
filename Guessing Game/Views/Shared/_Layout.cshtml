@@ -21,7 +21,7 @@
                     </a>
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav list-group">
-                    <li class="nav-item ms-4">
+                    @*<li class="nav-item ms-4">
                       <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Home" asp-action="About" >About</a>
                     </li>
                     <li class="nav-item ms-4 ">
@@ -32,7 +32,7 @@
                     <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Home" asp-action="Projects" >Projects</a>
                       
-                    </li>
+                    </li>*@
                     @*<li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Doctor" asp-action="Index" >Check Temperature</a>
                       
@@ -41,24 +41,40 @@
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="GuessingGame" asp-action="Index" >Guessing Game</a>
                       
                     </li>*@
-                    <li class="nav-item ms-4 ">    
+                    @*if(User.IsInRole("Admin")){
+                        <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Ajax" asp-action="Index" >Ajax</a>
                       
                     </li>
+                    }*@
+                    
                     <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="People" asp-action="Index" >People</a>
                       
                     </li>
-                    <li class="nav-item ms-4 ">    
+                    @if(User.IsInRole("Admin")){
+                        <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="City" asp-action="Index" >Cities</a>
                       
                     </li>
-                    <li class="nav-item ms-4 ">    
+                    }
+                    
+                    @if(User.IsInRole("Admin")){
+                        <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Country" asp-action="Index" >Countries</a>
                     </li>
-                    <li class="nav-item ms-4 ">    
+                    }
+                    
+                    @if(User.IsInRole("Admin")){
+                        <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Language" asp-action="Index" >Languages</a>
                     </li>
+                    <li class="nav-item ms-4 ">    
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="Role" asp-action="Index" >Roles</a>
+                    </li>
+
+                    }
+                    
                     <partial name=_LoginPartial />
                   </ul>
                 </div>

@@ -61,6 +61,16 @@ namespace Guessing_Game.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Required]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+            [Required]
+            [Display(Name = "Last name")]
+            public string LastName { get; set; }
+            [Required]
+            [Display(Name = "Birth date")]
+            public string BirthDate { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,10 +85,14 @@ namespace Guessing_Game.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Email, Email = Input.Email };
+                var user = new AppUser { UserName = Input.Email, Email = Input.Email, FirstName= Input.FirstName, LastName=Input.LastName, BirthDate=Input.BirthDate };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
+                    // every new user creates with a User role
+                    await _userManager.AddToRoleAsync(user, "User");
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -1,11 +1,12 @@
 ﻿using Guessing_Game.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Guessing_Game.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class AjaxController : Controller
     {
         [Route("/Ajax")]

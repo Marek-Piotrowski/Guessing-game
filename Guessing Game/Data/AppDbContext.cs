@@ -1,6 +1,8 @@
 ﻿using Guessing_Game.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Guessing_Game.Data
 {
@@ -63,8 +65,7 @@ namespace Guessing_Game.Data
             modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 4, PersonId = 1});
             modelBuilder.Entity<PersonLanguage>().HasData(new PersonLanguage { LanguageId = 5, PersonId = 3});
 
-
-
+            
 
             //City -> List of People relation - 1 to many
             modelBuilder.Entity<City>()
@@ -91,7 +92,37 @@ namespace Guessing_Game.Data
                 .HasForeignKey(c => c.PersonId);
 
 
+            // id for roles in application
+            string roleId = Guid.NewGuid().ToString();
+            string userRoleId = Guid.NewGuid().ToString();
+            // id for new user
+            string userId = Guid.NewGuid().ToString();
 
+
+            // Seeding Admin and User role to Database
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = roleId, Name = "Admin", NormalizedName = "ADMIN" });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = userRoleId, Name = "User", NormalizedName = "USER" });
+
+            PasswordHasher<AppUser> hasher = new PasswordHasher<AppUser>();
+
+            modelBuilder.Entity<AppUser>().HasData(new AppUser
+            {
+                Id = userId,
+                Email = "admin@test.com",
+                NormalizedEmail = "ADMIN@TEST.COM",
+                UserName = "admin@test.com",
+                NormalizedUserName = "ADMIN@TEST.COM",
+                FirstName = "Admin",
+                LastName = "System",
+                BirthDate = "12.12.2000",
+                PasswordHash = hasher.HashPassword(null, "magicorb"),
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = roleId,
+                UserId = userId,
+            });
         }
     }
 

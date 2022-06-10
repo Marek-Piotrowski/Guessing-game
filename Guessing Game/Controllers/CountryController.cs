@@ -1,5 +1,6 @@
 ﻿using Guessing_Game.Data;
 using Guessing_Game.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace Guessing_Game.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CountryController : Controller
     {
         private readonly AppDbContext _appContext;

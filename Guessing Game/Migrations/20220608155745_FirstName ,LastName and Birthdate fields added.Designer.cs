@@ -4,14 +4,16 @@ using Guessing_Game.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Guessing_Game.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220608155745_FirstName ,LastName and Birthdate fields added")]
+    partial class FirstNameLastNameandBirthdatefieldsadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,27 +93,6 @@ namespace Guessing_Game.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "f8003ee7-281e-4381-bd26-78102d02f103",
-                            AccessFailedCount = 0,
-                            BirthDate = "12.12.2000",
-                            ConcurrencyStamp = "35034f16-9419-4af5-bcff-871a087af818",
-                            Email = "admin@test.com",
-                            EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "System",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@TEST.COM",
-                            NormalizedUserName = "ADMIN@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAhobbIPM6Anc7aWjKXbANSSLdo1Fdv82AVckWuoEzS1GFEpd51Bm1UqWLO4epEwCg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e734910-8102-4fdb-a65c-a901b4dedc50",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@test.com"
-                        });
                 });
 
             modelBuilder.Entity("Guessing_Game.Models.City", b =>
@@ -377,22 +358,6 @@ namespace Guessing_Game.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "663edd18-0453-47c4-b2c9-927f467197aa",
-                            ConcurrencyStamp = "5c511ec5-02e7-47c1-94cb-cc6f1c0d05f3",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "a9ec0b29-33cb-4b23-afb3-b60f6d7db532",
-                            ConcurrencyStamp = "f86c7f89-97fd-4833-917f-77471b872860",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -478,13 +443,6 @@ namespace Guessing_Game.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "f8003ee7-281e-4381-bd26-78102d02f103",
-                            RoleId = "663edd18-0453-47c4-b2c9-927f467197aa"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
