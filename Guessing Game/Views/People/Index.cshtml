@@ -8,15 +8,21 @@
 <br></br>
 
 
-<form method="get" action="/People">
+@if (User.Identity.IsAuthenticated)
+{
+    <form method="get" action="/People">
     <label></label>
     <input type="text" label="" name="searchQuery" />
     <input type="submit" value="Search" />
 </form>
+}
+
 
 <br></br>
 
-<form asp-action="Index"  method="post">
+@if (User.Identity.IsAuthenticated)
+{
+    <form asp-action="Index"  method="post">
     <div asp-validation-summary=All class="text-danger"></div>
     <div class="form-group">
         <input name="NewName" type="text" placeholder="Name" />
@@ -35,7 +41,14 @@
        <select name="LanguageName" class="form-control" asp-items="ViewBag.Languages" ></select>
     </div>
     <input type="submit" value="Add Person" class="btn btn-primary" />
-</form>
+    </form>
+}
+else
+{
+    <div> Please log in to see the list of people. </div>
+}
+
+
 
 
 <br></br>
@@ -43,27 +56,57 @@
 
 
 <div class="row" >
-    <div class="col-md-1">#</div>
-    <div class="col-md-3">Name</div>
-    <div class="col-md-3">Phone Number</div>
+    <div class="col-md-2">#</div>
+    <div class="col-md-2">Name</div>
+    <div class="col-md-2">Phone Number</div>
     <div class="col-md-2">City</div>
     <div class="col-md-2">Language</div>
-    <div class="col-md-1">Link to delete</div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="col-md-1">Link to delete</div>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="col-md-1">Edit</div>
+    }
+    @if (User.IsInRole("User"))
+    {
+        <div class="col-md-2">Edit</div>
+    }
+    
 </div>
     <br />
+
+@if (User.Identity.IsAuthenticated)
+{
     @foreach(Person item in Model.people)
      {
        <div class="row">
-            <div class="col-md-1">@item.PersonId</div>
-            <div class="col-md-3">@item.Name</div>
-            <div class="col-md-3">@item.PhoneNumber</div>
+            <div class="col-md-2">@item.PersonId</div>
+            <div class="col-md-2">@item.Name</div>
+            <div class="col-md-2">@item.PhoneNumber</div>
             <div class="col-md-2">@((ViewBag.personCities as List<City>).Find(d => d.CityId == item.CityId).CityName)</div>
             <div class="col-md-2">@((ViewBag.langs as List<Language>).Find(d => d.LanguageId == (ViewBag.personlangs as List<PersonLanguage>).Find(c => c.PersonId == item.PersonId).LanguageId).LanguageName) </div>
-            <div class="col-md-1"><a asp-action="Remove" asp-controller="People" asp-route-personId="@item.PersonId">Remove</a></div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-md-1"><a asp-action="Remove" asp-controller="People" asp-route-personId="@item.PersonId">Remove</a></div>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-md-1"><a asp-action="Edit" asp-controller="People" asp-route-personId="@item.PersonId">Edit</a></div>
+            }
+            @if (User.IsInRole("User"))
+            {
+                <div class="col-md-2"><a asp-action="Edit" asp-controller="People" asp-route-personId="@item.PersonId">Edit</a></div>
+            }
+
+            
             
         </div>
 
      }
+}
+
 
 
 

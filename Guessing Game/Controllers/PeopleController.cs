@@ -158,6 +158,113 @@ namespace Guessing_Game.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult Edit(CreatePersonViewModel person, string CityName, string LanguageName,string PersonId)
+        {
+
+            if (ModelState.IsValid)
+            {
+                // here update the person
+
+                // remove person
+                int userId = int.Parse(PersonId);
+
+                Person personToRemove = _appContext.People.Find(userId);
+                var listLanguages = _appContext.Languages.ToList();
+                var personLanguages = _appContext.PersonLanguages.ToList();
+                Language lant = listLanguages.Find(d => d.LanguageId == personLanguages.Find(c => c.PersonId == userId).LanguageId);
+
+                PersonLanguage personLangToRemove = new PersonLanguage()
+                {
+                    LanguageId = lant.LanguageId,
+                    PersonId = personToRemove.PersonId,
+                };
+
+                _appContext.People.Remove(personToRemove);
+                _appContext.PersonLanguages.Remove(personLangToRemove);
+                _appContext.SaveChanges();
+
+                // add edited person
+
+                PeopleViewModel viewModel = new PeopleViewModel();
+
+                viewModel.people = _appContext.People.ToList();
+
+                City cityToAdd = _appContext.Cities.FirstOrDefault(c => c.CityName == CityName);
+                Language languageToAdd = _appContext.Languages.FirstOrDefault(c => c.LanguageName == LanguageName);
+
+                Person personModel = new Person()
+                {
+                    Name = person.NewName,
+                    PhoneNumber = person.NewPhone,
+                    CityId = cityToAdd.CityId,
+
+                };
+
+                _appContext.People.Add(personModel);
+                _appContext.SaveChanges();
+
+                PersonLanguage personlanguage = new PersonLanguage()
+                {
+                    PersonId = personModel.PersonId,
+                    LanguageId = languageToAdd.LanguageId,
+                };
+
+                _appContext.PersonLanguages.Add(personlanguage);
+                _appContext.SaveChanges();
+
+                viewModel.person = person;
+                viewModel.people = _appContext.People.ToList();
+
+                //person languages for ViewBag
+                var langs = _appContext.Languages.ToList();
+                ViewBag.langs = langs;
+
+                //personlangs for ViewBag
+                var personlangs = _appContext.PersonLanguages.ToList();
+                ViewBag.personlangs = personlangs;
+                //cities for ViewBag
+                var personCities = _appContext.Cities.ToList();
+                ViewBag.personCities = personCities;
+
+
+                return RedirectToAction("Index");
+            }
+
+            
+            
+            // if model state is not valid
+            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+            ViewBag.Languages = new SelectList(_appContext.Languages, "LanguageName", "LanguageName");
+
+            Person personToEdit = new Person()
+            {
+                Name = person.NewName,
+                PhoneNumber = person.NewPhone
+            };
+
+            return View(personToEdit);
+
+            
+
+        }
+
+        
+        public IActionResult Edit(string personId)
+        {
+            int userId = int.Parse(personId);
+
+            Person personToEdit = _appContext.People.Find(userId);
+
+            ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
+            ViewBag.Languages = new SelectList(_appContext.Languages, "LanguageName", "LanguageName");
+
+            return View(personToEdit);
+
+
+        }
+
+
 
 
     }
