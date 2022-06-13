@@ -237,13 +237,19 @@ namespace Guessing_Game.Controllers
             ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
             ViewBag.Languages = new SelectList(_appContext.Languages, "LanguageName", "LanguageName");
 
+            PersonToEditModel model = new PersonToEditModel();
+
             Person personToEdit = new Person()
             {
                 Name = person.NewName,
                 PhoneNumber = person.NewPhone
             };
 
-            return View(personToEdit);
+            model.Person = personToEdit;
+            model.CityName = CityName;
+            model.LanguageName = LanguageName;
+
+            return View(model);
 
             
 
@@ -252,14 +258,27 @@ namespace Guessing_Game.Controllers
         
         public IActionResult Edit(string personId)
         {
+            PersonToEditModel model = new PersonToEditModel();
             int userId = int.Parse(personId);
+            
 
             Person personToEdit = _appContext.People.Find(userId);
+            
+
+            var listLanguages = _appContext.Languages.ToList();
+            var personLanguages = _appContext.PersonLanguages.ToList();
+            Language lant = listLanguages.Find(d => d.LanguageId == personLanguages.Find(c => c.PersonId == userId).LanguageId);
+            City city = _appContext.Cities.FirstOrDefault(c => c.CityId == personToEdit.CityId);
 
             ViewBag.Cities = new SelectList(_appContext.Cities, "CityName", "CityName");
             ViewBag.Languages = new SelectList(_appContext.Languages, "LanguageName", "LanguageName");
 
-            return View(personToEdit);
+            
+            model.Person = personToEdit;
+            model.LanguageName = lant.LanguageName;
+            model.CityName = city.CityName;
+
+            return View(model);
 
 
         }
