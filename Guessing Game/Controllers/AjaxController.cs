@@ -46,6 +46,8 @@ namespace Guessing_Game.Controllers
             return PartialView("_IdNotFound");
         }
 
+
+
         [HttpPost]
         [Route("/Ajax/Delete/{personID?}")]
         public IActionResult Delete(string personID)

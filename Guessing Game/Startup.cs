@@ -30,7 +30,23 @@ namespace Guessing_Game
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+           
+
             services.AddMvc();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
+
+
             //services.AddControllersWithViews();
             services.AddSession(options =>
             {
@@ -58,6 +74,14 @@ namespace Guessing_Game
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -66,6 +90,8 @@ namespace Guessing_Game
             app.UseAuthorization();
 
             app.UseSession();
+
+           
 
             app.UseEndpoints(endpoints =>
             {

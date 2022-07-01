@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\components\CreatePerson.jsx" />
+    <None Include="wwwroot\components\Details.jsx" />
+    <None Include="wwwroot\components\Table.jsx" />
     <None Include="wwwroot\main.css" />
   </ItemGroup>
 

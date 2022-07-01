@@ -52,6 +52,11 @@
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="People" asp-action="Index" >People</a>
                       
                     </li>
+                    <li class="nav-item ms-4 ">    
+                        <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="ReactPeople" asp-action="Index" > React People</a>
+                      
+                    </li>
+
                     @if(User.IsInRole("Admin")){
                         <li class="nav-item ms-4 ">    
                         <a class="nav-link text-decoration-none text-light" aria-current="page" asp-controller="City" asp-action="Index" >Cities</a>
@@ -100,6 +105,7 @@
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js" language="javascript" type="text/javascript"></script>
     
     <script src="~/main.js" language="javascript" type="text/javascript" defer></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
