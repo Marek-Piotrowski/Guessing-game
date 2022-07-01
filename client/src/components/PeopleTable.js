@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useCallback } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -21,7 +20,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { Bars, Triangle } from "react-loader-spinner";
+import { Triangle } from "react-loader-spinner";
 
 export default function PeopleTable() {
   const [data, setData] = useState([]);
@@ -106,38 +105,7 @@ export default function PeopleTable() {
       .catch((error) => console.log(error));
   };
 
-  const sortTypes = {
-    up: {
-      class: "sort-up",
-      fn: (a, b) => a.Name - b.Name,
-    },
-    down: {
-      class: "sort-down",
-      fn: (a, b) => b.Name - a.Name,
-    },
-    default: {
-      class: "sort",
-      fn: (a, b) => a,
-    },
-  };
-
-  // const onSortChange = (i) => { // added method
-  //   var newData = data.sort(function(a, b){
-  //     if(a.name[i] < b.name[i]) { return -1; }
-  //     if(a.name[i] > b.name[i]) { return 1; }
-  //     return 0;
-  //   })
-
-  //   setData(newData)
-  // };
-
-  // sort((a, b) => a.name.localeCompare(b.name))
   // sorting
-
-  const newArray = [...data];
-
-  console.log("to nowy array");
-  console.log(newArray);
 
   const handleSortDesc = () => {
     const sortedData = [...data].sort((a, b) => {
