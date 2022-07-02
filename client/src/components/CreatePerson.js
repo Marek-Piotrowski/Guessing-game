@@ -42,15 +42,13 @@ export const CreatePerson = ({ fetchUsers, handleCloseAdd }) => {
       formValues.phone
     }&&country=${formValues.country.toLowerCase()}&&language=${formValues.language.toLowerCase()}`;
 
-    console.log("Przed updatem");
-    console.log(addStatus);
     await axios
       .get(url)
       .then((res) => setAddStatus(res.status))
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        console.log("Something went wrong when trying to add a person.")
+      );
 
-    console.log("Po update");
-    console.log(addStatus);
     await fetchUsers();
     notify();
     handleCloseAdd();
@@ -62,7 +60,7 @@ export const CreatePerson = ({ fetchUsers, handleCloseAdd }) => {
     axios
       .get(url)
       .then((res) => setCities(res.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("Cannot fetch cities."));
   };
 
   const getCountries = () => {
@@ -71,7 +69,7 @@ export const CreatePerson = ({ fetchUsers, handleCloseAdd }) => {
     axios
       .get(url)
       .then((res) => setCountries(res.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("Cannot fetch countries"));
   };
 
   const getLanguages = () => {
@@ -80,7 +78,7 @@ export const CreatePerson = ({ fetchUsers, handleCloseAdd }) => {
     axios
       .get(url)
       .then((res) => setLanguages(res.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("Cannot fetch languages"));
   };
 
   const notify = () => toast.success(`Person added `);

@@ -37,7 +37,7 @@ export default function PeopleTable() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
 
-  const notify = () => toast.info(`Person deleted status ${deleteStatus}`);
+  const notify = () => toast.info(`Person deleted`);
 
   const handleOpenAdd = () => {
     setOpenAddModal(true);
@@ -82,7 +82,9 @@ export default function PeopleTable() {
     await axios
       .get(urlDelete)
       .then((res) => setDeleteStatus(res.status))
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        console.log("Something went wrong when trying to delete person.")
+      );
 
     setData(data.filter((person) => person.personId !== id));
     notify();
@@ -96,7 +98,9 @@ export default function PeopleTable() {
     await axios
       .get(url)
       .then((res) => setPerson(res.data))
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        console.log("Something went wrong when trying to fetch details.")
+      );
 
     setDetailsLoading(false);
   };
@@ -109,7 +113,9 @@ export default function PeopleTable() {
     await axios
       .get(url)
       .then((res) => setData(res.data))
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        console.log("Something went wrong with fetching users")
+      );
 
     setLoading(false);
   };
