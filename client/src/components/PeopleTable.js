@@ -88,12 +88,12 @@ export default function PeopleTable() {
     notify();
   };
 
-  const handleDetails = (id) => {
+  const handleDetails = async (id) => {
     const url = `http://localhost:25586/ReactPeople/${id}`;
 
     setDetailsLoading(true);
 
-    axios
+    await axios
       .get(url)
       .then((res) => setPerson(res.data))
       .catch((error) => console.log(error));
