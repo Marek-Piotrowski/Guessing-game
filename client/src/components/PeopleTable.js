@@ -15,7 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -25,6 +25,7 @@ import { Triangle } from "react-loader-spinner";
 export default function PeopleTable() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [detailsLoading, setDetailsLoading] = useState(false);
 
   const [deleteStatus, setDeleteStatus] = useState(0);
   const [person, setPerson] = useState({
@@ -36,7 +37,7 @@ export default function PeopleTable() {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDetailsModal, setOpenDetailsModal] = useState(false);
 
-  const notify = () => toast.info(`Person deleted`);
+  const notify = () => toast.info(`Person deleted status ${deleteStatus}`);
 
   const handleOpenAdd = () => {
     setOpenAddModal(true);
@@ -90,19 +91,27 @@ export default function PeopleTable() {
   const handleDetails = (id) => {
     const url = `http://localhost:25586/ReactPeople/${id}`;
 
+    setDetailsLoading(true);
+
     axios
       .get(url)
       .then((res) => setPerson(res.data))
       .catch((error) => console.log(error));
+
+    setDetailsLoading(false);
   };
 
   const fetchUsers = async () => {
     const url = "http://localhost:25586/ReactPeople";
 
+    setLoading(true);
+
     await axios
       .get(url)
       .then((res) => setData(res.data))
       .catch((error) => console.log(error));
+
+    setLoading(false);
   };
 
   // sorting
@@ -123,15 +132,25 @@ export default function PeopleTable() {
     setData(sortedData);
   };
 
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   if (loading) {
-    <Triangle ariaLabel="loading-indicator" />;
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" mt={40}>
+        <Triangle ariaLabel="loading-indicator" />
+      </Box>
+    );
   }
 
-  useEffect(() => {
-    setLoading(true);
-    fetchUsers();
-    setLoading(false);
-  }, [person, deleteStatus]);
+  if (detailsLoading) {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center" mt={40}>
+        <Triangle ariaLabel="loading-indicator" />
+      </Box>
+    );
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -173,6 +192,7 @@ export default function PeopleTable() {
             <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {data.map((item) => (
             <TableRow
