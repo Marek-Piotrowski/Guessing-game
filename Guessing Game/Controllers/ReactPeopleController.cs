@@ -16,7 +16,7 @@ namespace Guessing_Game.Controllers
         {
             _appContext = config;
         }
-
+        // expose cities
         [Route("/ReactPeople/cities")]
         public ActionResult GetCitiesData()
         {
@@ -24,7 +24,7 @@ namespace Guessing_Game.Controllers
             var cities = GetCities();
             return Json(cities);
         }
-
+        // expose countries
         [Route("/ReactPeople/countries")]
         public ActionResult GetCountriesData()
         {
@@ -32,7 +32,7 @@ namespace Guessing_Game.Controllers
             var countries = GetCountries();
             return Json(countries);
         }
-
+        // expose languages
         [Route("/ReactPeople/languages")]
         public ActionResult GetLanguagesData()
         {
